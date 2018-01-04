@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script>
+window.onload = function () {
+
+var options = {
+	animationEnabled: true,
+	title:{
+		text: "Monthly Sales - 2017"
+	},
+	axisX: {
+		valueFormatString: "MMM"
+	},
+	axisY: {
+		title: "Sales (in USD)",
+		prefix: "$",
+		includeZero: false
+	},
+	data: [{
+		yValueFormatString: "$#,###",
+		xValueFormatString: "MMMM",
+		type: "spline",
+		dataPoints: [
+			{ x: new Date(2017, 0), y: 25060 },
+			{ x: new Date(2017, 1), y: 27980 },
+			{ x: new Date(2017, 2), y: 33800 },
+			{ x: new Date(2017, 3), y: 49400 },
+			{ x: new Date(2017, 4), y: 40260 },
+			{ x: new Date(2017, 5), y: 33900 },
+			{ x: new Date(2017, 6), y: 48000 },
+			{ x: new Date(2017, 7), y: 31500 },
+			{ x: new Date(2017, 8), y: 32300 },
+			{ x: new Date(2017, 9), y: 42000 },
+			{ x: new Date(2017, 10), y: 52160 },
+			{ x: new Date(2017, 11), y: 49400 }
+		]
+	}]
+};
+$("#chartContainer").CanvasJSChart(options);
+
+}
+</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+
+<div id="mainheader" class="headerbar">
+  <div class="headerbarleft">
+    <div class="headerbarflag" style="background-image:url('images/curlflag.jpg');background-repeat:no-repeat;">
+		  <a href="http://www.parkrun.com.au" title="parkrun.com.au"><div class="headerbarflagclickable">&nbsp;</div></a>
+		</div>
+		<div class="headerbarprlogo"> &nbsp; </div>
+		<div class="headerbareventname" style="background-image:url('images/subbrand.png');"> &nbsp; </div>
+	</div>
+	<div class="headerbarright">
+	  <div class="menubar">
+				<!-- change this next div back to a nav in future when HTML5 support is accross the board -->
+		  <div id="access" role="navigation">
+		  	<div class="menu-parkrun_event_menu_nopoints-container"> </div>
+      </div>
+	  </div>
+	  <div class="ribandbar">
+	    <a href="http://www.parkrun.com" title="parkrun.com"><div class="ribandbarclickable">&nbsp;</div></a>
+	  </div>
+  </div>
+</div>
+
+
+
+
+
+</body>
+</html>

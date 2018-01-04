@@ -1,0 +1,161 @@
+body{
+  margin:0;
+  padding:0;
+}
+a {
+  color:black;
+  text-decoration: none;
+}
+h1 {
+  font-size:45px;
+  text-align: center;
+  border-bottom:1px solid gray;
+  margin:0;
+  padding:20px;
+}
+select{
+  display:inline;
+  font-size:16px;
+  border-radius:20px;
+}
+#grid{
+  display: grid;
+  grid-template-columns: 150px 1fr;
+}
+#grid #selectDiv {
+  padding-top:10px;
+  padding-left:25px;
+}
+#grid #infoDiv{
+  padding-top:10px;
+  padding-left:25px;
+}
+#chartDiv{
+  padding-top:10px;
+  margin:0;
+  width:98%;
+  height:300px;
+}
+
+.divTable {
+  margin-top:30px;
+  display:table;
+  width:98%;
+}
+.divTableRow {
+  display:table-row;
+}
+.divTableHeading {
+  background-color:#EEE;
+  display:table-header-group;
+  font-weight:bold;
+}
+.divTableCell {
+  border:1px solid #999999;
+  display:table-cell;
+  padding:3px 10px;
+}
+.divTableBody {
+  display:table-row-group;
+}
+
+/* start of classes for the parkrun graded-brown visual header element at top of all pages */
+.headerbar
+{
+	height:116px;
+	width:100%;
+	min-width:960px;
+	background-image: url('images/sep.jpg');
+	background-repeat:repeat-x;
+	z-index:100;
+}
+.headerbarflag
+{
+	position:absolute;
+	width:157px;
+	height:116px;
+	left:0;
+	top:0;
+	z-index:1;
+}
+.headerbarflagclickable
+{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:125px;
+	height:85px;
+	cursor:pointer;
+}
+.headerbarjuniorprlogo
+{
+	position:absolute;
+	width:250px;
+	height:67px;
+	left:10px;
+	top:24px;
+	background-image:url('images/juniorprlogo.png');
+	background-repeat:no-repeat;
+	z-index:2;
+}
+.headerbarprlogo
+{
+	position:absolute;
+	width:300px;
+	height:67px;
+	left:109px;
+	top:24px;
+	background-image:url('images/prlogo.png');
+	background-repeat:no-repeat;
+	z-index:2;
+}
+.headerbareventname
+{
+	/* note that the background-image url is now dynamically done in header.php
+	   and assigned to the div using inline style - this is so we can get the
+	   event specific one obviously */
+	position:absolute;
+	top:88px;
+	left:0px;
+	width:249px;
+	z-index:3;
+	background-repeat:no-repeat;
+	background-position:right top;
+}
+.headerbarleft
+{
+	float:left;
+	width: 254px;
+	height:100%;
+	position:relative;
+}
+.headerbarright
+{
+	float:right;
+	height:116px;
+}
+.menubar
+{
+	float:left;
+	height:76px;
+	padding-top:70px;
+}
+.ribandbar
+{
+	float:right;
+	top:0px;
+	height:116px;
+	width:70px;
+	background-image:url('images/ribandsmaller.jpg');
+	background-repeat:no-repeat;
+}
+.ribandbarclickable
+{
+	position:relative;
+	top:0px;
+	left:8px;
+	width:50px;
+	height:76px;
+	cursor:pointer;
+}
+/* end of classes for the parkrun graded-brown visual header element at top of all pages */

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Parkrun</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <script src="common.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+  <script>
+  var Graph = {
+    getGraph : function() {
+
+      var graphData = {
+	      animationEnabled: true,
+        theme: "light2",
+	      title:{
+		      text: ""
+	      },
+	      axisX: {
+		      valueFormatString: "DD/MMM",
+          crosshair: {
+            enabled:true,
+            snapToDataPoint:true
+          },
+          margin:5
+	      },
+	      axisY: {
+		      title: "Time",
+          includeZero:false,
+          crosshair: {
+            enabled:true
+          },
+          minimum: 20,
+          maximum: 40,
+          viewportMinimum: 10
+	      },
+        toolTip: {
+          shared:true
+        },
+	      data: [{
+		      type: "spline",
+		      yValueFormatString: "##.##",
+		      xValueFormatString: "DD/MMM",
+		      dataPoints: [
+			        { x: new Date(2017, 0, 1), y: 28.20 },
+			        { x: new Date(2017, 0, 10), y: 29.34 },
+			        { x: new Date(2017, 1, 1), y: 29.34 },
+			        { x: new Date(2017, 1, 10), y: 29.34 },
+			        { x: new Date(2017, 2, 1), y: 29.34 },
+			        { x: new Date(2017, 2, 10), y: 30.01 }
+		      ]
+	      }]
+      };
+
+      $("#chartDiv").CanvasJSChart(graphData);
+    }
+  }
+
+  var Data = {
+    getInfo:function(park, num) {
+        //var urlStr = "http://www.parkrun.com.au/parramatta/results/athletehistory/?athleteNumber=769311";
+        console.log(park+":"+ num);
+        var urlStr = "http://www.parkrun.com.au/"+park+"/results/athletehistory/?athleteNumber="+num;
+        console.log(urlStr);
+
+        var proxy = "https://cors-anywhere.herokuapp.com/";
+        var infoArr = [];
+        var info = {};
+        var htmlStr = "";
+
+        $.ajax({
+          url : proxy + urlStr,
+          dataType : "html",
+          error : function() {
+            document.write("fail");
+          },
+          success : function(data) {
+            //var resultElem = $(data).find("#results")[2];
+            var resultElem = '<table class="sortable" id="results" cellspacing="4" cellpadding="0" align="center" border="0"> <caption>All Results</caption> <thead><tr><th>Run Date</th><th>Run Number</th><th>Pos</th><th>Time</th><th>Age Grade</th><th>PB?</th></tr></thead> <tbody><tr><td><a href="http://www.parkrun.com.au/parramatta/results/weeklyresults?runSeqNumber=256">25/12/2017</a></td><td><a href="http://www.parkrun.com.au/parramatta/results/weeklyresults?runSeqNumber=256">256</a></td><td>114</td><td>29:22</td><td>51.53%</td><td></td></tr> <tr><td><a href="http://www.parkrun.com.au/parramatta/results/weeklyresults?runSeqNumber=240">09/09/2017</a></td><td><a href="http://www.parkrun.com.au/parramatta/results/weeklyresults?runSeqNumber=240">240</a></td><td>121</td><td>28:21</td><td>53.38%</td><td>PB</td></tr> </tbody> </table>';
+
+            var idx = 0;
+            $(resultElem).find("td").each(function() {
+              if(idx % 6 === 0) {
+		            info.runDate = $(this).text();
+              } else if(idx % 6 === 1) {
+                info.runNum = $(this).text();
+              } else if(idx % 6 === 2) {
+                info.runPos = $(this).text();
+              } else if(idx % 6 === 3) {
+                info.runTime = $(this).text();
+              } else if(idx % 6 === 4) {
+		            info.runAgeGrade = $(this).text();
+              } else if(idx % 6 === 5) {
+                info.runPB = $(this).text();
+              }
+
+              if(idx % 6 === 5) {
+		            infoArr.push(info);
+                info = {};
+              }
+  	          idx++;
+            });
+
+            htmlStr += "<div id='chartDiv'></div>";
+            htmlStr += "<div class='divTable'>";
+            htmlStr += "<div class='divTableHeading'>";
+            htmlStr += "<div class='divTableRow'>";
+            htmlStr += "<div class='divTableCell'>Run Date</div>";
+            htmlStr += "<div class='divTableCell'>Run Num</div>";
+            htmlStr += "<div class='divTableCell'>Pos</div>";
+            htmlStr += "<div class='divTableCell'>Time</div>";
+            htmlStr += "<div class='divTableCell'>Age Grade</div>";
+            htmlStr += "<div class='divTableCell'>PB?</div>";
+            htmlStr += "</div>";
+            htmlStr += "</div>";
+            htmlStr += "<div class='divTableBody'>";
+
+            for (var i in infoArr) {
+              htmlStr += "<div class='divTableRow'>";
+              htmlStr += "<div class='divTableCell'>"+infoArr[i].runDate+"</div>";
+              htmlStr += "<div class='divTableCell'>"+infoArr[i].runNum+"</div>";
+              htmlStr += "<div class='divTableCell'>"+infoArr[i].runPos+"</div>";
+              htmlStr += "<div class='divTableCell'>"+infoArr[i].runTime+"</div>";
+              htmlStr += "<div class='divTableCell'>"+infoArr[i].runAgeGrade+"</div>";
+              htmlStr += "<div class='divTableCell'>"+infoArr[i].runPB+"</div>";
+              htmlStr += "</div>";
+              $("#infoDiv").html(htmlStr);
+            }
+            htmlStr += "</div>";
+            htmlStr += "</div>";
+            Graph.getGraph();
+          }
+        });
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div id="mainheader" class="headerbar">
+    <div class="headerbarleft">
+      <div class="headerbarflag" style="background-image:url('images/curlflag.jpg');background-repeat:no-repeat;">
+  		  <a href="http://www.parkrun.com.au" title="parkrun.com.au"><div class="headerbarflagclickable">&nbsp;</div></a>
+  		</div>
+  		<div class="headerbarprlogo"> &nbsp; </div>
+  		<!--<div class="headerbareventname" style="background-image:url('images/subbrand.png');"> &nbsp; </div>-->
+  		<div class="headerbareventname"> &nbsp; </div>
+  	</div>
+  	<div class="headerbarright">
+  	  <div class="menubar">
+  				<!-- change this next div back to a nav in future when HTML5 support is accross the board -->
+  		  <div id="access" role="navigation">
+  		  	<div class="menu-parkrun_event_menu_nopoints-container"> </div>
+        </div>
+  	  </div>
+  	  <div class="ribandbar">
+  	    <a href="http://www.parkrun.com" title="parkrun.com"><div class="ribandbarclickable">&nbsp;</div></a>
+  	  </div>
+    </div>
+  </div>
+
+
+  <div id="grid">
+    <div id="selectDiv">
+      <select id="parkSelect">
+        <option value="parramatta">Parramatta</option>
+        <option value="stpeters">St. Peters</option>
+        <option value="rootyhill">Rooty Hill</option>
+      </select>
+      <input type="text" id="selectedPark">
+      <input type="text" id="athleteNum" value="769311">
+    </div>
+
+    <div id="infoDiv"></div>
+
+  </div>
+
+<script>
+    $("#parkSelect").change(function() {
+      var str = "";
+      $("select option:selected").each(function() {
+        str += $(this).val();
+      });
+      $("#selectedPark").val(str);
+      Data.getInfo(str, $("#athleteNum").val());
+    }).trigger("change");
+</script>
+
+</body>
+</html>
