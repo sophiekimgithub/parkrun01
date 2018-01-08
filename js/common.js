@@ -167,9 +167,11 @@ var Data = {
       console.log(str+","+ $("#athleteNum").val());
       if(str=="all") {
           $("#summaryDiv").css("display", "block");
+          $("#chartDiv").css("display", "none");
           $("#infoDiv").css("display", "none");
       } else {
           $("#summaryDiv").css("display", "none");
+          $("#chartDiv").css("display", "block");
           $("#infoDiv").css("display", "block");
       }
       Data.getInfo(str, $("#athleteNum").val());
