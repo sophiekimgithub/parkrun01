@@ -33,12 +33,9 @@ var Graph = {
 	     title:{
 		       text: "Progress"
      	 },
-       axisX: {
-         valueFormatString:"DD/MMM/YYYY"
-       },
 	     axisY:{
 		      includeZero: false,
-          interval:100,
+          //interval:100,
           valueFormatString: "##:00"
           //labelFormatter:function(e) {
           //  return CanvasJS.formatNumber(e.value, "##:00");
